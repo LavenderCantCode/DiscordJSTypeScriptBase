@@ -1,12 +1,12 @@
-import { Run, Command } from "../../structures/Command";
-import { Message, MessageEmbed } from "discord.js";
+import { SlashCommand, Run } from "../../structures/SlashCommand";
+import { CommandInteraction } from "discord.js";
 import ExtendedClient from "../../structures/Client";
 
-export const command: Command = {
+export const command: SlashCommand = {
    name: "ping",
    description: "A simple ping command",
-   category: "Information",
+   type: "CHAT_INPUT"
 }
-export const run: Run = async (client: ExtendedClient, message: Message, args: string[]) => {
-   message.reply({content: `${client.ws.ping}ms`})
+export const run: Run = (client: ExtendedClient, interaction: CommandInteraction, args: Array<string>) => {
+   interaction.reply({content: "Pong!"})
 }
