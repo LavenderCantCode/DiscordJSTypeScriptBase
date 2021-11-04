@@ -5,7 +5,7 @@ import { BaseCommand } from "../../structures/SlashCommand";
 export const event: Event = {
    name: "interactionCreate"
 }
-export const run: Run = (client, interaction: Interaction) => {
+export const run: Run = async (client, interaction: Interaction) => {
      
    if (interaction.isCommand()) {
       const command = client.slashCommands.find(cmd => cmd.name === interaction.commandName) as BaseCommand
@@ -21,7 +21,7 @@ export const run: Run = (client, interaction: Interaction) => {
              args.push(option.value);
           }
       }
-      interaction.member = interaction.guild.members.cache.find(m => m.id === interaction.user.id)
+      interaction.member = await interaction.guild.members.fetch(interaction.user.id)
       command.run(client, interaction, args)
    }
 
